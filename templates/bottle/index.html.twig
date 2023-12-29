@@ -4,34 +4,44 @@
 {% endblock %}
 
 {% block body %}
-	<thead>
-		<th>Nom
-		</th>
-		<th>Anne
-		</th>
-		<th>Region
-		</th>
-		<th>Type
-		</th>
-		<th>Rangement
-		</th>
-		<th>
-			Actions
-		</th>
-	</thead>
-	<thead>
-		{% for bottle in bottles%}
-			<td>
-				{{bottle.name}}
-			</td>
-			<td>{{bottle.year |date('Y')}}
-			</td>
-			<td>{{bottle.region}}
-			</td>
-			<td>{{bottle.type}}
-			</td>
-			<td>{{bottle.storage}}
-			</td>
-		</thead>
-	{% endblock %}
-</thead>
+	<div>
+		<h1>Cave</h1>
+		<a href="{{ path('app_bottle_new')}}">
+			New
+		</a>
+		<table
+			border="1">
+			<!-- Добавлен border для наглядности, вы можете убрать это в продакшене -->
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Anne</th>
+					<th>Region</th>
+					<th>Type</th>
+					<th>Rangement</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for bottle in bottles %}
+					<tr>
+						<td>{{ bottle.name }}</td>
+						<td>{{ bottle.year | date('Y') }}</td>
+						<td>{{ bottle.region }}</td>
+						<td>{{ bottle.type }}</td>
+						<td>{{ bottle.storage }}</td>
+						<td>
+							<a>
+								<i class="fa-solid fa-open"></i>
+								Edit</a>
+							<a>
+								<i class="fa-solid fa-open"></i>
+								Delete</a>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
