@@ -11,13 +11,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Bottle;
+use App\Form\BottleSearchType;
+
 class BottleController extends AbstractController
 {
     #[Route('', name: 'app_bottle')]
-    public function index(BottleRepository $bottleRepository): Response
+    public function index(BottleRepository $bottleRepository, Request $request): Response
     {
+        $form = $this->createForm(BottleSearchType::class);
+        $form ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $bottles = $bottleRepository->findBy([
+                'region' => $form->getData()["region"],
+            ]);
+        } else {
+            $bottles = $bottleRepository->findAll();
+        }
+
         return $this->render('bottle/index.html.twig', [
-            'bottles' => $bottleRepository->findAll(),
+            'bottles' => $bottles,
+            'searchForm' => $form,
         ]);
     }
 
