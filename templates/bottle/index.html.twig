@@ -31,10 +31,10 @@
 						<td>{{ bottle.type }}</td>
 						<td>{{ bottle.storage }}</td>
 						<td>
-							<a>
+							<a href="{{path('app_bottle_edit', {id: bottle.id})}}">
 								<i class="fa-solid fa-open"></i>
 								Edit</a>
-							<a>
+							<a href="{{path('app_bottle_delete', {id: bottle.id})}}" onclick="return confirm('Etes vous sur?');">
 								<i class="fa-solid fa-open"></i>
 								Delete</a>
 						</td>
